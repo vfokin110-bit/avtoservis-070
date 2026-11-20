@@ -11,7 +11,7 @@ const timeBox=form.querySelector('[data-times]'),dayBox=form.querySelector('[dat
 function makeDays(){
   const now=localNow();
   days=Array.from({length:8},(_,i)=>{const day=addDays(now.day,i);return {day,slots:Array.from({length:12},(_,n)=>day+'T'+String(n+9).padStart(2,'0')+':00').filter(slot=>slot.slice(0,10)!==now.day||slot.slice(11)>now.time)};});
-  if(!days.some(d=>d.day===activeDay))activeDay=now.day;
+  if(!days.some(d=>d.day===activeDay))activeDay=days.find(d=>d.slots.length)?.day||now.day;
   if(chosen&&!days.some(d=>d.slots.includes(chosen)))chosen=null;
   renderDays();
 }
